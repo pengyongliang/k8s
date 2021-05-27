@@ -15,7 +15,7 @@
    ### disabled selinux
      sed -i 's/enforcing/disabled/' /etc/selinux/config
    ### config hosts
-       add /etc/hosts 
+       vi /etc/hosts 
        ip1 k8s-master
        ip2 k8s-node1
        ip3 k8s-node2
