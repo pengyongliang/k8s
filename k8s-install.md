@@ -3,7 +3,7 @@
      vm/centos7.x image
    ### set-hostname
       hostnamectl set-hostname xxxx
-   ### sop firewalld
+   ### stop firewalld
       systemctl stop firewalld
       systemctl disable firewalld
    ### swapoff
