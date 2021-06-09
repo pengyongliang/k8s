@@ -1,6 +1,8 @@
  # install kubernates
    ### env config
      vm/centos7.x image
+   ### VirtaulBox
+      https://embeddedinventor.com/cant-ping-virtualbox-troubleshooting-guide-and-solution/
    ### set-hostname
       hostnamectl set-hostname xxxx
    ### stop firewalld
