@@ -2,7 +2,11 @@
    ### env config
      vm/centos7.x image
    ### VirtaulBox
+      install doc
       https://embeddedinventor.com/cant-ping-virtualbox-troubleshooting-guide-and-solution/
+   ### vmware workstation
+      Understanding Common Networking Configurations
+      https://www.virtualbox.org/manual/ch06.html#networkingmodes
    ### set-hostname
       hostnamectl set-hostname xxxx
    ### stop firewalld
