@@ -4,9 +4,11 @@
    ### VirtaulBox
       install doc
       https://embeddedinventor.com/cant-ping-virtualbox-troubleshooting-guide-and-solution/
-   ### vmware workstation
       Understanding Common Networking Configurations
       https://www.virtualbox.org/manual/ch06.html#networkingmodes
+   ### vmware workstation
+     
+     
    ### set-hostname
       hostnamectl set-hostname xxxx
    ### stop firewalld
