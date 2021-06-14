@@ -7,7 +7,7 @@
       Understanding Common Networking Configurations
       https://www.virtualbox.org/manual/ch06.html#networkingmodes
    ### vmware workstation
-     
+     https://www.centennialsoftwaresolutions.com/post/bridged-nat-host-only-or-custom-vmware
      
    ### set-hostname
       hostnamectl set-hostname xxxx
