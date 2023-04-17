@@ -17,11 +17,14 @@
    ### swapoff
       swapoff -a
    ### config fstab
-      vi /etc/fstab
-      exclude last line
-      reboot now
+      1） vi /etc/fstab
+      2） comment last line，eg
+      #/dev/mapper/centos-swap swap                    swap    defaults        0 0
+      
+      3）reboot now
    ### disabled selinux
      sed -i 's/enforcing/disabled/' /etc/selinux/config
+     swapoff -a  # 临时
    ### config hosts
        vi /etc/hosts 
        ip1 k8s-master
@@ -52,7 +55,7 @@
        gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
        EOF
    ### install kubelet & kubeadm & kubectl tools
-       yum install -y kubelet-1.18.0 kubeadm-1.17.0 kubectl-1.18.0
+       yum install -y kubelet-1.18.0 kubeadm-1.18.0 kubectl-1.18.0
        systemctl enable kubelet
    ### kubeadm init( run script on every node )
        kubeadm init   --apiserver-advertise-address=ip   --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.18.0   --service-cidr=10.96.0.0/12   --pod-network-cidr=10.244.0.0/16
@@ -72,3 +75,20 @@
        kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=kube-system:dashboard-admin
        --print admin token
        kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | awk '/dashboard-admin/{print $1}')
+       
+   ### delete kubernate dashboard 
+       sudo kubectl delete deployment kubernetes-dashboard --namespace=kubernetes-dashboard 
+       sudo kubectl delete service kubernetes-dashboard  --namespace=kubernetes-dashboard 
+       sudo kubectl delete service dashboard-metrics-scraper  --namespace=kubernetes-dashboard 
+       sudo kubectl delete role.rbac.authorization.k8s.io kubernetes-dashboard --namespace=kubernetes-dashboard 
+       sudo kubectl delete clusterrole.rbac.authorization.k8s.io kubernetes-dashboard --namespace=kubernetes-dashboard
+       sudo kubectl delete rolebinding.rbac.authorization.k8s.io kubernetes-dashboard --namespace=kubernetes-dashboard
+       sudo kubectl delete clusterrolebinding.rbac.authorization.k8s.io kubernetes-dashboard --namespace=kubernetes-dashboard
+       sudo kubectl delete deployment.apps kubernetes-dashboard --namespace=kubernetes-dashboard
+       sudo kubectl delete deployment.apps dashboard-metrics-scraper --namespace=kubernetes-dashboard
+       sudo kubectl delete sa kubernetes-dashboard --namespace=kubernetes-dashboard 
+       sudo kubectl delete secret kubernetes-dashboard-certs --namespace=kubernetes-dashboard
+       sudo kubectl delete secret kubernetes-dashboard-csrf --namespace=kubernetes-dashboard
+       sudo kubectl delete secret kubernetes-dashboard-key-holder --namespace=kubernetes-dashboard
+       sudo kubectl delete namespace kubernetes-dashboard 
+       sudo kubectl delete configmap kubernetes-dashboard-settings
