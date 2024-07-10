@@ -95,4 +95,4 @@
        sudo kubectl delete namespace kubernetes-dashboard 
        sudo kubectl delete configmap kubernetes-dashboard-settings
 
-      ### kubectl delete -f /home/recommended-custom.yml (master node)
+   ### kubectl delete -f /home/recommended-custom.yml (master node)
