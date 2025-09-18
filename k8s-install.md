@@ -1,48 +1,52 @@
  # install kubernates
-   ### env config
+   ## env config
      vm/centos7.x image
-   ### VirtaulBox
+   ## VirtaulBox
       install doc
       https://embeddedinventor.com/cant-ping-virtualbox-troubleshooting-guide-and-solution/
       Understanding Common Networking Configurations
       https://www.virtualbox.org/manual/ch06.html#networkingmodes
-   ### vmware workstation
+   ## vmware workstation
      https://www.centennialsoftwaresolutions.com/post/bridged-nat-host-only-or-custom-vmware
-     
-   ### set-hostname(every node)
+
+   ## 准备环境
+    ![kubernetesæ¶æå¾](https://blog-1252881505.cos.ap-beijing.myqcloud.com/k8s/single-master.jpg) 
+
+    | 角色       | IP            |
+    | ---------- | ------------- |
+    | k8s-master | 192.168.56.5 |
+    | k8s-node1  | 192.168.56.10 |
+    | k8s-node2  | 192.168.56.11 |
+    
+   ## set-hostname(every node)
       hostnamectl set-hostname xxxx
-   ### stop firewalld(every node)
+   ## stop firewalld(every node)
       systemctl stop firewalld
       systemctl disable firewalld
-   ### swapoff
+   ## swapoff
       swapoff -a
-   ### config fstab(every node)
+   ## config fstab(every node)
       1） vi /etc/fstab
       2） comment last line，eg
       #/dev/mapper/centos-swap swap                    swap    defaults        0 0
       
       3）reboot now
-   ### ip_forward (every node)
+   ## ip_forward (every node)
        echo 1 > /proc/sys/net/ipv4/ip_forward
-   ### disabled selinux(every node)
+   ## disabled selinux(every node)
      sed -i 's/enforcing/disabled/' /etc/selinux/config
      swapoff -a  # 临时
-   ### config hosts(every node)
-       | 角色       | IP            |
-| ---------- | ------------- |
-| k8s-master | 192.168.31.61 |
-| k8s-node1  | 192.168.31.62 |
-| k8s-node2  | 192.168.31.63 |
+   ## config hosts(every node)
        vi /etc/hosts 
        ip1 k8s-master
        ip2 k8s-node1
        ip3 k8s-node2
-   ### config k8s.conf(every node)
+   ## config k8s.conf(every node)
        cat > /etc/sysctl.d/k8s.conf << EOF
        net.bridge.bridge-nf-call-ip6tables = 1
        net.bridge.bridge-nf-call-iptables = 1
        EOF
-   ### install docker(every node)
+   ## install docker(every node)
        wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
        yum -y install docker-ce-18.06.1.ce-3.el7
        systemctl enable docker && systemctl start docker
@@ -51,7 +55,7 @@
           "registry-mirrors": ["https://b9pmyelo.mirror.aliyuncs.com"]
         }
         EOF
-   ### config kubernates.repo(every node)
+   ## config kubernates.repo(every node)
        cat > /etc/yum.repos.d/kubernetes.repo << EOF
        [kubernetes]
        name=Kubernetes
@@ -64,7 +68,7 @@
    ### install kubelet & kubeadm & kubectl tools(every node)
        yum install -y kubelet-1.18.0 kubeadm-1.18.0 kubectl-1.18.0
        systemctl enable kubelet
-   ### kubeadm init( master node )
+   ## kubeadm init( master node )
        kubeadm init   --apiserver-advertise-address=ip   --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.18.0   --service-cidr=10.96.0.0/12   --pod-network-cidr=10.244.0.0/16
        
        mkdir -p $HOME/.kube
@@ -72,9 +76,9 @@
        sudo chown $(id -u):$(id -g) $HOME/.kube/config
        
        kubectl get nodes
-   ### install network plugin( master node )
+   ## install network plugin( master node )
        kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-   ### install kubernate dashboard( master node )
+   ## install kubernate dashboard( master node )
        kubectl apply -f https://github.com/pengyongliang/k8s/blob/b9472652d5b84647b2957087d8c88d8b33b06797/recommended.yaml
        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
        kubectl get services
@@ -84,7 +88,7 @@
        --print admin token
        kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | awk '/dashboard-admin/{print $1}')
        
-   ### delete kubernate dashboard ( master node )
+   ## delete kubernate dashboard ( master node )
        sudo kubectl delete deployment kubernetes-dashboard --namespace=kubernetes-dashboard 
        sudo kubectl delete service kubernetes-dashboard  --namespace=kubernetes-dashboard 
        sudo kubectl delete service dashboard-metrics-scraper  --namespace=kubernetes-dashboard 
@@ -101,4 +105,4 @@
        sudo kubectl delete namespace kubernetes-dashboard 
        sudo kubectl delete configmap kubernetes-dashboard-settings
 
-   ### kubectl delete -f /home/recommended-custom.yml (master node)
+   ## kubectl delete -f /home/recommended-custom.yml (master node)
