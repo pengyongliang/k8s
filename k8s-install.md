@@ -10,11 +10,10 @@
      https://www.centennialsoftwaresolutions.com/post/bridged-nat-host-only-or-custom-vmware
 
    ## 准备环境
-    ![kubernetesæ¶æå¾](https://blog-1252881505.cos.ap-beijing.myqcloud.com/k8s/single-master.jpg) 
 
-    | 角色       | IP            |
+    | 角色        | IP            |
     | ---------- | ------------- |
-    | k8s-master | 192.168.56.5 |
+    | k8s-master | 192.168.56.5  |
     | k8s-node1  | 192.168.56.10 |
     | k8s-node2  | 192.168.56.11 |
     
