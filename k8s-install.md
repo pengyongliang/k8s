@@ -70,7 +70,7 @@
    ### install network plugin( master node )
        kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
    ### install kubernate dashboard( master node )
-       kubectl apply -f https://github.com/pengyongliang/k8s/blob/b9472652d5b84647b2957087d8c88d8b33b06797/kube-flannel.yml
+       kubectl apply -f https://github.com/pengyongliang/k8s/blob/b9472652d5b84647b2957087d8c88d8b33b06797/recommended.yaml
        kubectl get services
        kubectl get pods --all-namespaces -o wide
        kubectl create serviceaccount dashboard-admin -n kube-system
