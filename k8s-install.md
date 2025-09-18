@@ -28,6 +28,11 @@
      sed -i 's/enforcing/disabled/' /etc/selinux/config
      swapoff -a  # 临时
    ### config hosts(every node)
+       | 角色       | IP            |
+| ---------- | ------------- |
+| k8s-master | 192.168.31.61 |
+| k8s-node1  | 192.168.31.62 |
+| k8s-node2  | 192.168.31.63 |
        vi /etc/hosts 
        ip1 k8s-master
        ip2 k8s-node1
