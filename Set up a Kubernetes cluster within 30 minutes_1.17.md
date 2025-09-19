@@ -15,7 +15,7 @@ $ kubeadm join <Master节点的IP和端口 >
 ```
 
 ## 1. 安装要求
-s
+
 在开始之前，部署Kubernetes集群机器需要满足以下几个条件：
 
 - 一台或多台机器，操作系统 CentOS7.x-86_x64
