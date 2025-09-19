@@ -30,7 +30,7 @@ $ kubeadm join <Master节点的IP和端口 >
   - VirtaulBox
       install doc
       https://embeddedinventor.com/cant-ping-virtualbox-troubleshooting-guide-and-solution/
-      Understanding Common Networking Configurations
+   - Understanding Common Networking Configurations
       https://www.virtualbox.org/manual/ch06.html#networkingmodes
   - vmware workstation（可选）
      https://www.centennialsoftwaresolutions.com/post/bridged-nat-host-only-or-custom-vmware
